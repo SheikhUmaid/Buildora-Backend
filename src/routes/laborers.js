@@ -12,7 +12,7 @@ router.use(authenticate, requireRole('engineer'));
 const pin = z.string().trim().regex(/^\d{4}$/, 'PIN must be 4 digits');
 
 const baseSchema = {
-  name: z.string().trim().min(2, 'Enter the laborer name').max(80),
+  name: z.string().trim().min(2, 'Enter the manager name').max(80),
   phone: z.string().trim().min(5, 'Enter a valid phone number').max(20),
   trade: z.string().trim().min(1).max(40).optional(),
   projects: z.array(z.string()).optional(),
@@ -38,7 +38,7 @@ async function ownedProjectIds(engineerId, ids = []) {
 async function loadOwn(actor, id) {
   assertObjectId(id, 'laborer id');
   const laborer = await Laborer.findOne({ _id: id, engineer: actor.doc._id }).select('+pin');
-  if (!laborer) throw notFound('Laborer not found');
+  if (!laborer) throw notFound('Manager not found');
   return laborer;
 }
 
@@ -56,7 +56,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const data = validate(createSchema, req.body);
-  if (await Laborer.exists({ phone: data.phone })) throw conflict('A laborer with this phone number already exists');
+  if (await Laborer.exists({ phone: data.phone })) throw conflict('A manager with this phone number already exists');
   const laborer = await Laborer.create({
     engineer: req.actor.doc._id,
     name: data.name,
@@ -80,7 +80,7 @@ router.patch('/:id', async (req, res) => {
   const laborer = await loadOwn(req.actor, req.params.id);
   const data = validate(updateSchema, req.body);
   if (data.phone && data.phone !== laborer.phone && (await Laborer.exists({ phone: data.phone }))) {
-    throw conflict('A laborer with this phone number already exists');
+    throw conflict('A manager with this phone number already exists');
   }
   if (data.projects) laborer.projects = await ownedProjectIds(req.actor.doc._id, data.projects);
   for (const key of ['name', 'phone', 'trade', 'active']) {
@@ -103,7 +103,7 @@ router.post('/:id/reset-pin', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const laborer = await loadOwn(req.actor, req.params.id);
   await laborer.deleteOne();
-  res.json({ message: 'Laborer removed' });
+  res.json({ message: 'Manager removed' });
 });
 
 export default router;

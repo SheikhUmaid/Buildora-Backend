@@ -88,8 +88,8 @@ router.post('/login', loginLimiter, async (req, res) => {
   if (data.role && user.role !== data.role) {
     throw forbidden(
       user.role === 'client'
-        ? 'This is a client account. Please use the Buildora client app.'
-        : 'This is a contractor account. Please use the Buildora contractor app.',
+        ? 'This is a client account. Please use the Buildora Insight app.'
+        : 'This is a contractor account. Please use the Buildora On-site app.',
     );
   }
   const actor = { kind: 'user', role: user.role, id: user.id, doc: user };
@@ -163,7 +163,7 @@ const profileSchema = z.object({
 });
 
 router.patch('/me', authenticate, async (req, res) => {
-  if (req.actor.kind !== 'user') throw forbidden('Laborer profiles are managed by your contractor');
+  if (req.actor.kind !== 'user') throw forbidden('Manager profiles are managed by your contractor');
   const data = validate(profileSchema, req.body);
   Object.assign(req.actor.doc, data);
   await req.actor.doc.save();

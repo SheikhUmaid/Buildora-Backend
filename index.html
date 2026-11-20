@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Download Buildora</title>
+  <meta name="description" content="Download the Buildora apps for Android: Buildora Insight for home owners and Buildora On-site for engineers and site managers.">
+  <meta name="theme-color" content="#111111">
+  <meta property="og:title" content="Download Buildora">
+  <meta property="og:description" content="Daily construction progress, from site to home owner. Get the Android apps.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Crect width='1024' height='1024' rx='230' fill='%23111111'/%3E%3Crect x='225' y='317' width='259' height='92' rx='46' fill='%23F26B1D'/%3E%3Crect x='225' y='466' width='431' height='92' rx='46' fill='%23fff'/%3E%3Crect x='225' y='615' width='575' height='92' rx='46' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f5f3;
+      --surface-2: #ecece9;
+      --border: #e6e6e3;
+      --text: #111111;
+      --muted: #6f6f6b;
+      --faint: #a5a5a0;
+      --orange: #f26b1d;
+      --orange-soft: #fdebdd;
+      --black: #111111;
+      --on-black: #ffffff;
+      --green: #1e9e4a;
+      --shadow: 0 1px 2px rgba(17,17,17,.04), 0 12px 32px rgba(17,17,17,.07);
+      --radius: 28px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0d0d0d;
+        --surface: #181817;
+        --surface-2: #232321;
+        --border: #2a2a28;
+        --text: #f4f4f2;
+        --muted: #a3a39e;
+        --faint: #6c6c68;
+        --orange-soft: #3a2113;
+        --black: #f4f4f2;
+        --on-black: #111111;
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0d0d0d; --surface: #181817; --surface-2: #232321; --border: #2a2a28;
+      --text: #f4f4f2; --muted: #a3a39e; --faint: #6c6c68; --orange-soft: #3a2113;
+      --black: #f4f4f2; --on-black: #111111;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 640px) { .wrap { padding: 0 28px; } }
+
+    /* ---------- Header */
+    header { padding: 18px 0; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -.4px; }
+    .mark { display: inline-flex; flex-direction: column; gap: 3px; }
+    .mark i { display: block; height: 5px; border-radius: 3px; background: var(--black); }
+    .mark i:nth-child(1) { width: 11px; background: var(--orange); }
+    .mark i:nth-child(2) { width: 18px; }
+    .mark i:nth-child(3) { width: 24px; }
+
+    /* ---------- Hero */
+    .hero { padding: 28px 0 8px; text-align: center; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 14px; border-radius: 999px;
+      background: var(--orange-soft); color: var(--orange);
+      font-size: 13px; font-weight: 600;
+    }
+    .pill svg { width: 16px; height: 16px; }
+    h1 {
+      margin: 18px auto 12px; max-width: 640px;
+      font-size: clamp(32px, 8.5vw, 54px); line-height: 1.05; letter-spacing: -1.6px; font-weight: 800;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--orange); }
+    .lead { margin: 0 auto; max-width: 520px; color: var(--muted); font-size: 17px; text-wrap: pretty; }
+
+    /* ---------- Platform notice */
+    .notice {
+      display: none; margin: 22px auto 0; max-width: 560px;
+      padding: 14px 16px; border-radius: 18px; background: var(--surface);
+      font-size: 14px; color: var(--muted); text-align: left;
+      gap: 12px; align-items: flex-start;
+    }
+    .notice.show { display: flex; }
+    .notice svg { flex: none; width: 20px; height: 20px; color: var(--orange); margin-top: 1px; }
+    .notice b { color: var(--text); }
+
+    /* ---------- App cards */
+    .apps { display: grid; gap: 18px; padding: 32px 0 8px; }
+    @media (min-width: 860px) { .apps { grid-template-columns: 1fr 1fr; gap: 24px; } }
+
+    .card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .card-top { padding: 22px 20px 0; display: flex; gap: 16px; align-items: center; }
+    @media (min-width: 640px) { .card-top { padding: 28px 28px 0; } }
+    .app-icon { flex: none; width: 72px; height: 72px; border-radius: 18px; box-shadow: 0 6px 18px rgba(17,17,17,.18); }
+    .app-icon svg { display: block; width: 100%; height: 100%; border-radius: inherit; }
+    .who { font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); }
+    .card h2 { margin: 2px 0 0; font-size: 24px; letter-spacing: -.6px; line-height: 1.15; }
+    .card h2 span { color: var(--orange); font-weight: 600; }
+    .tagline { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+    .card-body { padding: 18px 20px 22px; display: flex; flex-direction: column; flex: 1; }
+    @media (min-width: 640px) { .card-body { padding: 20px 28px 28px; } }
+    .desc { margin: 0 0 16px; font-size: 15px; }
+
+    .features { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 10px; }
+    .features li { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; }
+    .features .fi {
+      flex: none; width: 34px; height: 34px; border-radius: 11px;
+      display: grid; place-items: center; background: var(--surface); color: var(--text);
+    }
+    .features .fi svg { width: 18px; height: 18px; }
+    .features b { display: block; font-weight: 600; font-size: 14.5px; }
+    .features small { display: block; color: var(--muted); font-size: 13px; line-height: 1.4; }
+
+    .actions { margin-top: auto; display: grid; gap: 12px; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 56px; padding: 0 22px; border-radius: 999px;
+      font: inherit; font-size: 16px; font-weight: 600; text-decoration: none; cursor: pointer;
+      border: 0; transition: transform .12s ease, box-shadow .2s ease, background-color .2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .btn svg { width: 20px; height: 20px; flex: none; }
+    .btn-dark { background: var(--black); color: var(--on-black); }
+    .btn-dark:hover { box-shadow: 0 8px 22px rgba(17,17,17,.22); }
+    .btn-orange { background: var(--orange); color: #fff; }
+    .btn-orange:hover { box-shadow: 0 8px 22px rgba(242,107,29,.35); }
+    .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 12.5px; color: var(--muted); }
+    .meta span { display: inline-flex; align-items: center; gap: 5px; }
+    .meta svg { width: 14px; height: 14px; }
+
+    .qr { display: none; align-items: center; gap: 14px; padding: 12px; border-radius: 18px; background: var(--surface); }
+    .qr-box { flex: none; width: 92px; height: 92px; padding: 6px; border-radius: 12px; background: #fff; }
+    .qr-box img, .qr-box canvas { display: block; width: 100% !important; height: 100% !important; }
+    .qr p { margin: 0; font-size: 13px; color: var(--muted); }
+    .qr p b { display: block; color: var(--text); font-size: 14px; }
+    @media (min-width: 900px) and (hover: hover) { .qr.ready { display: flex; } }
+
+    /* ---------- Install steps */
+    section.steps { padding: 48px 0 8px; }
+    .section-title { margin: 0 0 6px; font-size: 26px; letter-spacing: -.6px; text-align: center; }
+    .section-sub { margin: 0 auto 26px; max-width: 520px; text-align: center; color: var(--muted); font-size: 15px; }
+    .step-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: step; }
+    @media (min-width: 760px) { .step-list { grid-template-columns: repeat(4, 1fr); } }
+    .step-list li {
+      counter-increment: step; position: relative;
+      padding: 18px 18px 18px 64px; border-radius: 22px; background: var(--surface); font-size: 14px; color: var(--muted);
+    }
+    @media (min-width: 760px) { .step-list li { padding: 58px 18px 20px; } }
+    .step-list li::before {
+      content: counter(step); position: absolute; left: 18px; top: 18px;
+      width: 32px; height: 32px; border-radius: 50%;
+      display: grid; place-items: center; background: var(--black); color: var(--on-black);
+      font-weight: 700; font-size: 14px;
+    }
+    .step-list b { display: block; color: var(--text); font-size: 15px; margin-bottom: 2px; }
+
+    /* ---------- FAQ */
+    section.faq { padding: 44px 0 8px; }
+    details { border-bottom: 1px solid var(--border); }
+    details:first-of-type { border-top: 1px solid var(--border); }
+    summary {
+      list-style: none; cursor: pointer; padding: 18px 4px; font-weight: 600; font-size: 15.5px;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; flex: none; font-size: 22px; font-weight: 400; color: var(--muted); transition: transform .2s ease; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { margin: 0 4px 18px; color: var(--muted); font-size: 14.5px; }
+    .faq-wrap { max-width: 720px; margin: 0 auto; }
+
+    footer { padding: 48px 0 calc(32px + env(safe-area-inset-bottom)); text-align: center; color: var(--faint); font-size: 13px; }
+    footer .brand { font-size: 16px; color: var(--text); margin-bottom: 8px; }
+
+    /* ---------- Toast */
+    .toast {
+      position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom));
+      transform: translate(-50%, 140%); opacity: 0;
+      max-width: calc(100% - 32px); padding: 14px 18px; border-radius: 16px;
+      background: #111; color: #fff; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      display: flex; gap: 10px; align-items: center;
+      transition: transform .3s cubic-bezier(.2,.8,.2,1), opacity .3s ease; z-index: 10;
+    }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .toast svg { width: 18px; height: 18px; color: var(--orange); flex: none; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .card { animation: rise .6s cubic-bezier(.2,.8,.2,1) both; }
+      .card:nth-child(2) { animation-delay: .08s; }
+      @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    }
+  </style>
+</head>
+<body>
+  <!-- Reusable icons -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+      <symbol id="i-android" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18a.38.38 0 0 0-.66-.38l-1.86 3.22a11.4 11.4 0 0 0-9.84 0L5.22 5.92a.38.38 0 0 0-.66.38L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+      <symbol id="i-photos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+      <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></symbol>
+      <symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+      <symbol id="i-team" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+    </defs>
+  </svg>
+
+  <header>
+    <div class="wrap">
+      <a class="brand" href="#" aria-label="Buildora home">
+        <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        Buildora
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="pill"><svg aria-hidden="true"><use href="#i-android"/></svg>Available for Android</span>
+        <h1>Your build, <em>every day</em>, in your pocket.</h1>
+        <p class="lead">Two apps, one project. Site teams post photos and progress from site, and home owners follow the build and reply in one tap.</p>
+
+        <div class="notice" id="ios-notice" role="note">
+          <svg aria-hidden="true"><use href="#i-info"/></svg>
+          <div><b>These apps are for Android right now.</b> Open this page on an Android phone to install them. An iPhone version is coming later.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap apps" aria-label="Apps">
+      <!-- Buildora Insight -->
+      <article class="card" id="insight">
+        <div class="card-top">
+          <div class="app-icon" aria-hidden="true">
+            <svg viewBox="0 0 1024 1024"><rect width="1024" height="1024" fill="#111111"/><rect x="225" y="317" width="259" height="92" rx="46" fill="#F26B1D"/><rect x="225" y="466" width="431" height="92" rx="46" fill="#fff"/><rect x="225" y="615" width="575" height="92" rx="46" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="who">For home owners</div>
+            <h2>Buildora <span>Insight</span></h2>
+            <p class="tagline">Your build, every day</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="desc">See what happened on site today without calling anyone. Join your project with the invite code from your contractor.</p>
+          <ul class="features">
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-photos"/></svg></span><div><b>Daily photo timeline</b><small>Every photo, note and voice note in date order, from day one to handover.</small></div></li>
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-chat"/></svg></span><div><b>Ask or request a change</b><small>Reply on any update with a question, photos or a voice note.</small></div></li>
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-check"/></svg></span><div><b>Approve in one tap</b><small>Say "Looks good" and track every request until it's done.</small></div></li>
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-user"/></svg></span><div><b>Know your contractor</b><small>Call or WhatsApp them and browse their completed projects.</small></div></li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-dark" href="https://faymas-dev.s3.us-east-1.amazonaws.com/buildora/app-release-client.apk" download="Buildora-Insight.apk" data-app="Buildora Insight">
+              <svg aria-hidden="true"><use href="#i-download"/></svg>Download Buildora Insight
+            </a>
+            <div class="meta">
+              <span><svg aria-hidden="true"><use href="#i-android"/></svg>Android APK</span>
+              <span>Version 1.0.0</span>
+              <span>54 MB</span>
+              <span><svg aria-hidden="true"><use href="#i-shield"/></svg>No ads</span>
+            </div>
+            <div class="qr" data-qr="https://faymas-dev.s3.us-east-1.amazonaws.com/buildora/app-release-client.apk">
+              <div class="qr-box"></div>
+              <p><b>On a computer?</b>Scan with your Android phone's camera to download it there.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Buildora On-site -->
+      <article class="card" id="onsite">
+        <div class="card-top">
+          <div class="app-icon" aria-hidden="true">
+            <svg viewBox="0 0 1024 1024"><rect width="1024" height="1024" fill="#F26B1D"/><rect x="225" y="317" width="259" height="92" rx="46" fill="#111111"/><rect x="225" y="466" width="431" height="92" rx="46" fill="#fff"/><rect x="225" y="615" width="575" height="92" rx="46" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="who">For engineers &amp; site managers</div>
+            <h2>Buildora <span>On-site</span></h2>
+            <p class="tagline">Site updates made simple</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="desc">Post today's progress in under a minute and keep every client in the loop. Site managers log in with their phone number and PIN.</p>
+          <ul class="features">
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-camera"/></svg></span><div><b>Post daily updates</b><small>Photos, work done, crew by trade, a voice note and overall progress.</small></div></li>
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-folder"/></svg></span><div><b>Run every project</b><small>Create projects, set progress and invite clients with a 6-character code.</small></div></li>
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-inbox"/></svg></span><div><b>Handle client requests</b><small>Reply, update the status, or call and WhatsApp straight from the request.</small></div></li>
+            <li><span class="fi"><svg aria-hidden="true"><use href="#i-team"/></svg></span><div><b>Managers &amp; portfolio</b><small>Give site managers their own login, and showcase completed work.</small></div></li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-orange" href="https://faymas-dev.s3.us-east-1.amazonaws.com/buildora/app-release-worker.apk" download="Buildora-On-site.apk" data-app="Buildora On-site">
+              <svg aria-hidden="true"><use href="#i-download"/></svg>Download Buildora On-site
+            </a>
+            <div class="meta">
+              <span><svg aria-hidden="true"><use href="#i-android"/></svg>Android APK</span>
+              <span>Version 1.0.0</span>
+              <span>55 MB</span>
+              <span><svg aria-hidden="true"><use href="#i-shield"/></svg>No ads</span>
+            </div>
+            <div class="qr" data-qr="https://faymas-dev.s3.us-east-1.amazonaws.com/buildora/app-release-worker.apk">
+              <div class="qr-box"></div>
+              <p><b>On a computer?</b>Scan with your Android phone's camera to download it there.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="steps">
+      <div class="wrap">
+        <h2 class="section-title">How to install</h2>
+        <p class="section-sub">The apps aren't on the Play Store yet, so Android asks for permission the first time.</p>
+        <ol class="step-list">
+          <li><b>Download</b>Tap the download button for your app. Your browser saves the .apk file.</li>
+          <li><b>Open the file</b>Tap the finished download in the notification bar or the Downloads app.</li>
+          <li><b>Allow the install</b>If Android asks, tap <em>Settings</em> and turn on <em>Allow from this source</em>, then go back.</li>
+          <li><b>Install &amp; sign in</b>Tap <em>Install</em>, open the app, and log in or create your account.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="wrap faq-wrap">
+        <h2 class="section-title" style="margin-bottom:22px">Questions</h2>
+        <details>
+          <summary>Which app do I need?</summary>
+          <p>If you're building or renovating a home and want to follow the work, get <b>Buildora Insight</b>. If you're the engineer, contractor or a site manager posting updates, get <b>Buildora On-site</b>.</p>
+        </details>
+        <details>
+          <summary>How do I join my project as a home owner?</summary>
+          <p>Sign up in Buildora Insight, tap <em>Join project</em> and enter the 6-character invite code your contractor shares with you.</p>
+        </details>
+        <details>
+          <summary>I'm a site manager. How do I log in?</summary>
+          <p>Install Buildora On-site, tap <em>Login as Manager</em> and enter the phone number and 4-digit PIN your engineer gave you.</p>
+        </details>
+        <details>
+          <summary>Android says the file might be harmful. Is it safe?</summary>
+          <p>Android shows this warning for every app installed from outside the Play Store. If you downloaded it from this page, tap <em>Install anyway</em>. Play Protect may also offer to scan it, which is fine.</p>
+        </details>
+        <details>
+          <summary>How do I update to a new version?</summary>
+          <p>Download the app again from this page and install it over the old one. Your account and projects stay as they are.</p>
+        </details>
+        <details>
+          <summary>Is there an iPhone version?</summary>
+          <p>Not yet. Both apps are Android-only for now.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Buildora</div>
+      <div>Daily construction progress, from site to home owner.</div>
+      <div>&copy; <span id="year">2026</span> Buildora</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg aria-hidden="true"><use href="#i-download"/></svg>
+    <span id="toast-text"></span>
+  </div>
+
+  <script>
+    (function () {
+      var ua = navigator.userAgent || '';
+      var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      if (isIOS) document.getElementById('ios-notice').classList.add('show');
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Small confirmation after tapping a download button.
+      var toast = document.getElementById('toast');
+      var timer;
+      document.querySelectorAll('[data-app]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (navigator.vibrate) { try { navigator.vibrate(15); } catch (e) {} }
+          document.getElementById('toast-text').textContent =
+            'Downloading ' + btn.getAttribute('data-app') + '. Open the file when it finishes to install.';
+          toast.classList.add('show');
+          clearTimeout(timer);
+          timer = setTimeout(function () { toast.classList.remove('show'); }, 5000);
+        });
+      });
+    })();
+  </script>
+
+  <!-- QR codes for visitors on a computer (hidden on phones; the page works without it) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script>
+    window.addEventListener('load', function () {
+      if (typeof QRCode === 'undefined') return;
+      document.querySelectorAll('[data-qr]').forEach(function (el) {
+        try {
+          new QRCode(el.querySelector('.qr-box'), {
+            text: el.getAttribute('data-qr'), width: 160, height: 160,
+            colorDark: '#111111', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M
+          });
+          el.classList.add('ready');
+        } catch (e) {}
+      });
+    });
+  </script>
+</body>
+</html>
